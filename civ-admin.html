@@ -79,6 +79,7 @@
             <span class="guests"><span>[[invitation.guest1.name]]</span> &amp; <span>[[invitation.guest2.name]]</span></span>
             <span class="email">[[invitation.contact]]</span>
             <span class="invitation-link">[[_linkToInvitation(invitation)]]</span>
+            <span class="status">[[_responseFor(invitation.*)]]</span>
           </span>
           <textarea class="email-pre flex" hidden></textarea>
           <span class="email-content" hidden>
@@ -218,6 +219,43 @@ Click here to go to the registry: http://www.amazon.com/registry/wedding/MBC68AH
           pre.setAttribute('hidden', '');
         }
       }
+    },
+
+    _responseFor: function(change) {
+      var invitation = change.base;
+      if (invitation.wontAttend) {
+        return 'Not attending ˚‧º·(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )‧º·˚';
+      }
+
+      if (!invitation.guest1.attending && !invitation.guest2.attending) {
+        return 'No response yet ლ(´Д`ლ)';
+      }
+
+      var response = '';
+
+      if (invitation.guest1.attending) {
+        response += invitation.guest1.name;
+      }
+
+      if (invitation.guest2.attending) {
+        if (response) {
+          response += ', ' + invitation.guest2.name;
+        }
+      }
+
+      if (invitation.additionalGuests) {
+        response += ' and ' + invitation.additionalGuests + ' other' + (invitation.additionalGuests > 1 ? 's' : '');
+      }
+
+      response += ' attending';
+
+      if (invitation.additionalGuests > 2) {
+        response += ' (´⊙ω⊙`)！'
+      } else {
+        response += ' ﾍ(=￣∇￣)ﾉ';
+      }
+
+      return response;
     }
   });
 </script>

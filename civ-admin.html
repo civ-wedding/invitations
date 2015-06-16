@@ -2,6 +2,7 @@
 <link rel="import" href="bower_components/firebase-element/firebase-collection.html">
 <link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="bower_components/paper-styles/paper-styles.html">
 
 <dom-module id="civ-admin">
@@ -73,11 +74,50 @@
     </header>
     <ul>
       <template is="dom-repeat" items="{{invitations}}" as="invitation">
-        <li class="flex layout horizontal" data-done$="[[invitation.contacted]]">
+        <li class="flex layout horizontal" data-done$="[[invitation.contacted]]" on-tap="_onInvitationTap">
           <span class="flex layout vertical">
             <span class="guests"><span>[[invitation.guest1.name]]</span> &amp; <span>[[invitation.guest2.name]]</span></span>
             <span class="email">[[invitation.contact]]</span>
             <span class="invitation-link">[[_linkToInvitation(invitation)]]</span>
+          </span>
+          <textarea class="email-pre flex" hidden></textarea>
+          <span class="email-content" hidden>
+<p>Dear <span>[[invitation.guest1.name]]</span> &amp; <span>[[invitation.guest2.name]]</span>,</p>
+
+<p>Donna Almendrala and Christopher Joel<br>
+request the pleasure of your company<br>
+to take part in their new civilization.</p>
+
+<p><strong>Please use this link to RSVP and view party details.<br>
+This is your personal invitation link so please do not share it:</strong><br>
+<span>[[_linkToInvitation(invitation)]]</span><p>
+
+<p><strong>Please RSVP by July 23rd, 2015</strong></p>
+
+<p>Love,</p>
+
+<p>Chris &amp; Donna</p>
+
+<p>===========================</p>
+
+<p>Plain text details below:</p>
+
+<p>August 15, 2015 · Ceremony at 5:00pm</p>
+
+<p>Please join Chris &amp; Donna at the Shadow Hills Vineyards, the home of Elizabeth Greist (Chris's Grandmother).</p>
+
+<p><pre>2915 S Vasco Road
+Livermore, CA 94550</pre></p>
+
+<p>Dress code: historical</p>
+
+<p>We welcome you to dress as a person from any civilization from any time period, well-known or known only to yourself.<br>
+Or don't (whatever floats your trireme)!</p>
+
+<p>Gift registry</p>
+
+<p>If you are in a gift-giving mood, please consider using our gift registry on Amazon.<br>
+Click here to go to the registry: http://www.amazon.com/registry/wedding/MBC68AHOHCDR.</p>
           </span>
           <span class="mark-done">
             <paper-checkbox checked="{{invitation.contacted}}">Contacted</paper-checkbox>
@@ -85,6 +125,7 @@
           <span class="mark-replied">
             <paper-checkbox disabled checked="[[_guestReplied(invitation.*)]]">Guest replied</paper-checkbox>
           </span>
+
         </li>
       </template>
     </ul>
@@ -162,6 +203,21 @@
     _guestReplied: function(change) {
       var invitation = change.base;
       return invitation.wontAttend || invitation.guest1.attending || invitation.guest2.attending;
+    },
+
+    _onInvitationTap: function(event) {
+      if (event.target.tagName === 'LI') {
+        var email = event.target.querySelector('.email-content');
+        var pre = event.target.querySelector('.email-pre');
+
+        pre.value = email.textContent;
+
+        if (pre.hasAttribute('hidden')) {
+          pre.removeAttribute('hidden');
+        } else {
+          pre.setAttribute('hidden', '');
+        }
+      }
     }
   });
 </script>

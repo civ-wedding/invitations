@@ -10,6 +10,7 @@
     "firebase-element": "googlewebcomponents/firebase-element#^1.0.0",
     "paper-checkbox": "polymerelements/paper-checkbox#^1.0.0",
     "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
-    "paper-styles": "polymerelements/paper-styles#^1.0.0"
+    "paper-styles": "polymerelements/paper-styles#^1.0.0",
+    "paper-toggle-button": "polymerelements/paper-toggle-button#^1.0.0"
   }
 }

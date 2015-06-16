@@ -1,0 +1,15 @@
+{
+  "name": "civ-admin",
+  "version": "1.0.0",
+  "authors": [
+    "Chris Joel <chris@scriptolo.gy>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "polymer": "polymer/polymer#^1.0.0",
+    "firebase-element": "googlewebcomponents/firebase-element#^1.0.0",
+    "paper-checkbox": "polymerelements/paper-checkbox#^1.0.0",
+    "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
+    "paper-styles": "polymerelements/paper-styles#^1.0.0"
+  }
+}

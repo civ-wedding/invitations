@@ -71,6 +71,7 @@
       <span class="flex">Invitations sent: <span>[[_numberSentInvitations(invitations.splices)]]</span> / <span>[[invitations.length]]</span></span>
       <span class="flex">RSVPs: <span>[[_numberRepliedInvitations(invitations.splices)]]</span> / <span>[[invitations.length]]</span></span>
       <span class="flex">Number of attending guests: <span>[[_numberAttendingGuests(invitations.splices)]]</span></span>
+      <span class="flex">Estimated attendance: <span>[[_estimatedAttendance(invitations.splices)]]</span></span>
     </header>
     <ul>
       <template is="dom-repeat" items="{{invitations}}" as="invitation">
@@ -256,6 +257,14 @@ Click here to go to the registry: http://www.amazon.com/registry/wedding/MBC68AH
       }
 
       return response;
+    },
+
+    _estimatedAttendance: function() {
+      var numberAttending = this._numberAttendingGuests();
+      var sentInvitations = this._numberSentInvitations();
+      var repliedInvitations = this._numberRepliedInvitations();
+
+      return Math.round(sentInvitations / repliedInvitations * numberAttending) || 0;
     }
   });
 </script>
